@@ -1,0 +1,248 @@
+// delete the following line if no text is used
+// edit the line if you wanna use other fonts
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,500,400,300);
+
+// * VARIABLES
+$primary__color: #ec6565;
+
+$bg: #FFF;
+$color: #333;
+$height: 400px;
+$width: 400px;
+
+$gallery__gap: 4px;
+$gallery__padding: 4px;
+$image__container__height: 194px;
+$image__container__width: 194px;
+
+$plus__button__height: 50px;
+$plus__button__width: 50px;
+
+$header__height: 180px;
+$close__button__height: 50px;
+$close__button__width: 50px;
+$center__image__container__height: 100px;
+$center__image__container__width: 100px;
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+// use only the available space inside the 400x400 frame
+.frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: $height;
+  width: $width;
+  margin-top: calc(#{$height} / 2 * -1);
+  margin-left: calc(#{$width} / 2 * -1);
+  border-radius: 7px;
+  box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: $bg;
+  color: $color;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $gallery__gap;
+  padding: $gallery__padding;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
+  .image__container {
+    position: relative;
+    height: $image__container__height;
+    width: $image__container__width;
+    cursor: pointer;
+  }
+
+  .image__container img {
+    object-fit: cover;
+  }
+
+  .image__container:hover .overlay {
+    opacity: 0.4;
+  }
+
+  .image__container:hover .plus__button {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    opacity: 0;
+    transition: all 0.6s ease-in-out;
+  }
+
+  .plus__button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    height: $plus__button__height;
+    width: $plus__button__width;
+    background-color: $primary__color;
+    box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all .4s ease-in-out;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      width: 14px;
+      background-color: #fff;
+      transform: translate(-50%, -50%);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      width: 14px;
+      background-color: #fff;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  }
+}
+
+.gallery__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+
+  .header {
+    height: $header__height;
+    width: 100%;
+    background: url('https://100dayscss.com/codepen/13-1-header.jpg');
+  }
+
+  .header .close {
+    position: relative;
+    top: 10px;
+    right: 10px;
+    float: right;
+    height: $close__button__height;
+    width: $close__button__width;
+    background-color: $primary__color;
+    box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      width: 14px;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      background-color: #fff;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      width: 14px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background-color: #fff;
+    }
+  }
+
+  .center__image__container {
+    position: absolute;
+    left: 50%;
+    height: $center__image__container__height;
+    width: $center__image__container__width;
+    margin-top: calc(#{$center__image__container__height} / 2 * -1);
+    z-index: 2;
+    transform: translateX(-50%);
+    
+    img {
+      border: 2px solid #FFF;
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+  }
+
+  .down {
+    height: calc(#{$height} - #{$header__height});
+    background-color: $primary__color;
+
+    .inner {
+      position: relative;
+      top: calc(#{$center__image__container__height} / 2);
+    }
+
+    .name {
+      text-transform: capitalize;
+      color: #FFF;
+      font-weight: 500;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .action__buttons__container {
+      position: relative;
+      top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      width: 100%;
+
+      i {
+        width: 45px;
+        height: 45px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 20px;
+        color: #FFF;
+        border: 1px solid #FFF;
+        border-radius: 45px;
+        padding: 12px 0;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+          background-color: #FFF;
+          color: $primary__color;
+        }
+      }
+
+    }
+  }
+}
+
+// ANIMATIONS
