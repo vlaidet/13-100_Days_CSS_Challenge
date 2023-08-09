@@ -19,10 +19,14 @@ $plus__button__height: 50px;
 $plus__button__width: 50px;
 
 $header__height: 180px;
+$close__button__offset: 10px;
 $close__button__height: 50px;
 $close__button__width: 50px;
 $center__image__container__height: 100px;
 $center__image__container__width: 100px;
+
+$action__button__height: 45px;
+$action__button__width: 45px;
 
 * {
   padding: 0;
@@ -131,6 +135,31 @@ img {
   }
 }
 
+.gallery__overlay.active {
+
+  pointer-events: all;
+
+  .header {
+    transform: translate3d(0, 0, 0);
+    transition: all .6s ease-out;
+  }
+
+  .header .close {
+    transform: translate3d(0, 0, 0);
+    transition: background .3s ease-in-out, transform .6s ease-out .6s;
+  }
+
+  .center__image__container {
+    transform: translate3d(-50%, 0, 0);
+    transition: all .6s ease-out .3s;
+  }
+
+  .down {
+    transform: translate3d(0, 0, 0);
+    transition: all .6s ease-out;
+  }
+}
+
 .gallery__overlay {
   position: absolute;
   top: 0;
@@ -138,17 +167,20 @@ img {
   height: 100%;
   width: 100%;
   z-index: 1;
+  pointer-events: none;
 
   .header {
     height: $header__height;
     width: 100%;
     background: url('https://100dayscss.com/codepen/13-1-header.jpg');
+    transform: translate3d(0, calc(#{$header__height} * -1), 0);
+    transition: all .6s ease-in .4s;
   }
 
   .header .close {
     position: relative;
-    top: 10px;
-    right: 10px;
+    top: $close__button__offset;
+    right: $close__button__offset;
     float: right;
     height: $close__button__height;
     width: $close__button__width;
@@ -156,6 +188,8 @@ img {
     box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     cursor: pointer;
+    transform: translate3d(0, calc((#{$close__button__height} + #{$close__button__offset}) * -1), 0);
+    transition: background .3s ease-in-out, transform .5s ease-in;
 
     &::before {
       content: "";
@@ -166,6 +200,7 @@ img {
       width: 14px;
       transform: translate(-50%, -50%) rotate(-45deg);
       background-color: #fff;
+      transition: all .3s ease-in-out;
     }
 
     &::after {
@@ -176,7 +211,20 @@ img {
       height: 2px;
       width: 14px;
       transform: translate(-50%, -50%) rotate(45deg);
-      background-color: #fff;
+      background-color: #FFF;
+      transition: all .3s ease-in-out;
+    }
+
+    &:hover {
+      background-color: #FFF;
+    }
+
+    &:hover::before {
+      background-color: $primary__color;
+    }
+
+    &:hover::after {
+      background-color: $primary__color;
     }
   }
 
@@ -187,7 +235,8 @@ img {
     width: $center__image__container__width;
     margin-top: calc(#{$center__image__container__height} / 2 * -1);
     z-index: 2;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, calc((#{$height} / 2 + 30px) * -1), 0);
+    transition: all .6s ease-in .2s;
     
     img {
       border: 2px solid #FFF;
@@ -199,6 +248,8 @@ img {
   .down {
     height: calc(#{$height} - #{$header__height});
     background-color: $primary__color;
+    transform: translate3d(0, calc(#{$height} - #{$header__height}), 0);
+    transition: all .6s ease-in .4s;
 
     .inner {
       position: relative;
@@ -215,15 +266,15 @@ img {
 
     .action__buttons__container {
       position: relative;
-      top: 40px;
+      top: 35px;
       display: flex;
       justify-content: center;
       gap: 40px;
       width: 100%;
 
       i {
-        width: 45px;
-        height: 45px;
+        height: $action__button__height;
+        width: $action__button__width;
         text-align: center;
         font-size: 22px;
         line-height: 20px;
@@ -244,5 +295,3 @@ img {
     }
   }
 }
-
-// ANIMATIONS
